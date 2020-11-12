@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller\Admin;
 
 use App\Controller\Admin\AppController;
@@ -10,15 +11,19 @@ use App\Controller\Admin\AppController;
  *
  * @method \App\Model\Entity\KrajRegion[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class KrajRegionsController extends AppController
-{
+class KrajRegionsController extends AppController {
+
+    public function initialize() {
+        parent::initialize();
+//        $this->viewBuilder()->setLayout('cakephp_default');
+    }
+
     /**
      * Index method
      *
      * @return \Cake\Http\Response|null
      */
-    public function index()
-    {
+    public function index() {
         $krajRegions = $this->paginate($this->KrajRegions);
 
         $this->set(compact('krajRegions'));
@@ -31,8 +36,7 @@ class KrajRegionsController extends AppController
      * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
+    public function view($id = null) {
         $krajRegion = $this->KrajRegions->get($id, [
             'contain' => ['ObecCities', 'OkresCounties'],
         ]);
@@ -45,8 +49,7 @@ class KrajRegionsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {
+    public function add() {
         $krajRegion = $this->KrajRegions->newEntity();
         if ($this->request->is('post')) {
             $krajRegion = $this->KrajRegions->patchEntity($krajRegion, $this->request->getData());
@@ -67,8 +70,7 @@ class KrajRegionsController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
+    public function edit($id = null) {
         $krajRegion = $this->KrajRegions->get($id, [
             'contain' => [],
         ]);
@@ -91,8 +93,7 @@ class KrajRegionsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
-    {
+    public function delete($id = null) {
         $this->request->allowMethod(['post', 'delete']);
         $krajRegion = $this->KrajRegions->get($id);
         if ($this->KrajRegions->delete($krajRegion)) {
@@ -103,4 +104,5 @@ class KrajRegionsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
 }

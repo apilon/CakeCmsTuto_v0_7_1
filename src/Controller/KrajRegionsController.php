@@ -16,6 +16,7 @@ class KrajRegionsController extends AppController {
     public function initialize() {
         parent::initialize();
         $this->Auth->allow(['getByKrajRegion']);
+        $this->viewBuilder()->setLayout('cakephp_default');
     }
 
     /**
